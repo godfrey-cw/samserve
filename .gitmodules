@@ -1,3 +1,3 @@
 [submodule "serve"]
 	path = serve
-	url = git@github.com:godfrey-cw/serve.git
+	url = https://github.com/godfrey-cw/serve.git
