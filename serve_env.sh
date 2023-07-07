@@ -20,5 +20,12 @@ cd ~;
 mkdir keys;
 openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout keys/mykey.key -out keys/mycert.pem;
 
+# add key, ip address to repo (only when repo is private!!)
+curl -4 ifconfig.co >> samserve/auth/ipadress.txt;
+cp keys/mycert.pem samserve/auth/mycert.pem;
+cd samserve;
+git add . && git commit -m "updating ip, sslkey";
+git pull && git push;
+
 # launch torchserve
 torchserve --model-store /models --start --models all --ts-config samserve/config.properties --no-config-snapshots;
