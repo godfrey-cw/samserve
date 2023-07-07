@@ -57,7 +57,8 @@ class ModelHandler(BaseHandler):
 
             images.append(image)
 
-        return torch.stack(images).to(self.device)
+        # current inferrence code expects a single np array
+        return images[0]
 
     def inference(self, data, *args, **kwargs):
         """
