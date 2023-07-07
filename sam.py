@@ -5,6 +5,8 @@ from segment_anything.modeling import (
     MaskDecoder,
     TwoWayTransformer,
 )
+from functools import partial
+from torch.nn import LayerNorm
 
 # for now doing vit_b version
 
@@ -28,7 +30,7 @@ class Model(Sam):
                 embed_dim=encoder_embed_dim,
                 img_size=image_size,
                 mlp_ratio=4,
-                norm_layer=partial(torch.nn.LayerNorm, eps=1e-6),
+                norm_layer=partial(LayerNorm, eps=1e-6),
                 num_heads=encoder_num_heads,
                 patch_size=vit_patch_size,
                 qkv_bias=True,
