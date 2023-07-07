@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 
+sudo apt update && sudo apt upgrade;
 # install torchserve + dependencies
 cd ~/samserve/serve;
 python ts_scripts/install_dependencies.py --cuda=cu117; # vm actually has 12.0 ...
@@ -19,7 +20,7 @@ torch-model-archiver --model-name sam-auto-maskgen --serialized-file samweights/
 cd ~;
 mkdir keys;
 openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout keys/mykey.key -out keys/mycert.pem;
-curl -4 ifconfig.co >> keys/ipadress.txt;
+curl -4 ifconfig.co >> keys/ipaddress.txt;
 
 # launch torchserve
-torchserve --model-store /models --start --models all --ts-config samserve/config.properties --no-config-snapshots;
+torchserve --model-store models --start --models all --ts-config samserve/config.properties --no-config-snapshots;
