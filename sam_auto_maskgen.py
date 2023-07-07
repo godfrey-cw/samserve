@@ -76,3 +76,18 @@ class ModelHandler(BaseHandler):
         with torch.no_grad():
             results = mg.generate(data, *args, **kwargs)
         return results
+
+    def postprocess(self, data):
+        """
+        The post process function makes use of the output from the inference and converts into a
+        Torchserve supported response output.
+
+        Args:
+            data (Torch Tensor): The torch tensor received from the prediction output of the model.
+
+        Returns:
+            List: The post process function returns a list of the predicted output.
+        """
+
+        # return data.tolist()
+        return data

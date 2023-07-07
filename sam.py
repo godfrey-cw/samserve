@@ -23,7 +23,7 @@ class Model(Sam):
         encoder_num_heads=12,
         encoder_global_attn_indexes=[2, 5, 8, 11],
     ):
-        image_embedding_size = image_size / vit_patch_size
+        image_embedding_size = image_size // vit_patch_size
         super().__init__(
             image_encoder=ImageEncoderViT(
                 depth=encoder_depth,
