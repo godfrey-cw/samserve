@@ -18,10 +18,10 @@ class Model(Sam):
         image_size: int = 1024,
         vit_patch_size: int = 16,
         # vit_b params
-        encoder_embed_dim=1024,
-        encoder_depth=24,
-        encoder_num_heads=16,
-        encoder_global_attn_indexes=[5, 11, 17, 23],
+        encoder_embed_dim=768,
+        encoder_depth=12,
+        encoder_num_heads=12,
+        encoder_global_attn_indexes=[2, 5, 8, 11],
     ):
         image_embedding_size = image_size / vit_patch_size
         super().__init__(
