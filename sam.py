@@ -1,17 +1,26 @@
-from segment_anything.modeling import Sam, ImageEncoderViT, PromptEncoder, MaskDecoder, TwoWayTransformer
+from segment_anything.modeling import (
+    Sam,
+    ImageEncoderViT,
+    PromptEncoder,
+    MaskDecoder,
+    TwoWayTransformer,
+)
 
 # for now doing vit_b version
 
-def Model(Sam):
-    def __init__(self,
-                prompt_embed_dim: int = 256,
-                image_size:int=1024,
-                vit_patch_size:int=16,
-                # vit_b params
-                encoder_embed_dim=1024,
-                encoder_depth=24,
-                encoder_num_heads=16,
-                encoder_global_attn_indexes=[5, 11, 17, 23],):
+
+class Model(Sam):
+    def __init__(
+        self,
+        prompt_embed_dim: int = 256,
+        image_size: int = 1024,
+        vit_patch_size: int = 16,
+        # vit_b params
+        encoder_embed_dim=1024,
+        encoder_depth=24,
+        encoder_num_heads=16,
+        encoder_global_attn_indexes=[5, 11, 17, 23],
+    ):
         image_embedding_size = image_size / vit_patch_size
         super().__init__(
             image_encoder=ImageEncoderViT(
