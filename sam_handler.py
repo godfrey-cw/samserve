@@ -11,6 +11,7 @@ from PIL import Image
 from torchvision import transforms as T
 import numpy as np
 
+
 class ModelHandler(BaseHandler):
     """
     A custom model handler implementation.
@@ -57,7 +58,7 @@ class ModelHandler(BaseHandler):
             images.append(image)
 
         return torch.stack(images).to(self.device)
-    
+
     def inference(self, data, *args, **kwargs):
         """
         The Inference Function is used to make a prediction call on the given input request.
