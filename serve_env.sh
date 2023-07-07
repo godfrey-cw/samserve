@@ -14,7 +14,7 @@ pip install -e .;
 cd ~;
 mkdir models && mkdir samweights;
 curl -o samweights/sam_vit_b_01ec64.pth https://dl.fbaipublicfiles.com/segment_anything/sam_vit_b_01ec64.pth;
-torch-model-archiver --model-name sam-auto-maskgen --serialized-file samweights/sam_vit_b_01ec64.pth --model-file samserve/sam.py --handler samserve/sam_auto_maskgen.py  --export-path models/sam-auto-maskgen.mar -v 0.1;
+torch-model-archiver --model-name sam-auto-maskgen --serialized-file samweights/sam_vit_b_01ec64.pth --model-file samserve/sam.py --handler samserve/sam_auto_maskgen.py  --export-path models -v 0.1;
 
 # ssl stuff (note, requires interactive)
 cd ~;
