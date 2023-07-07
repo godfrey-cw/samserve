@@ -36,11 +36,12 @@ class ModelHandler(BaseHandler):
     def preprocess(self, data):
         # copied from visionhandler
         images = []
-
         for row in data:
             # Compat layer: normally the envelope should just return the data
             # directly, but older versions of Torchserve didn't have envelope.
-            image = row.get("data") or row.get("body")
+            print(row)
+            d = row.get("body") or row.get("data")
+            image = d["image"]
             if isinstance(image, str):
                 # if the image is a string of bytesarray.
                 image = base64.b64decode(image)
