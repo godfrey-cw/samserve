@@ -76,7 +76,12 @@ class ModelHandler(BaseHandler):
         results = []
         with torch.no_grad():
             for row in data:
-                results.append(mg.generate(row, *args, **kwargs))
+                out = mg.generate(row, *args, **kwargs)
+                result = []
+                for o in out:
+                    o["segmentation"] = o["segmentation"].tolist()
+                    result.append(o)
+                results.append(result)
         return results
 
     def postprocess(self, data):
