@@ -40,8 +40,10 @@ class ModelHandler(BaseHandler):
             # Compat layer: normally the envelope should just return the data
             # directly, but older versions of Torchserve didn't have envelope.
             print(row)
-            d = row.get("body") or row.get("data")
-            image = d["image"]
+            # image = row.get("body") or row.get("data")
+            # d = row.get("body") or row.get("data")
+            # image = d["image"]
+            image = row["image"]
             if isinstance(image, str):
                 # if the image is a string of bytesarray.
                 image = base64.b64decode(image)
