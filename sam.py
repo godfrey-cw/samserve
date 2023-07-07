@@ -5,6 +5,7 @@ from segment_anything.modeling import (
     MaskDecoder,
     TwoWayTransformer,
 )
+from functools import partial
 
 # for now doing vit_b version
 
