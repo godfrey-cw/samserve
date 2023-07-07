@@ -58,7 +58,7 @@ class ModelHandler(BaseHandler):
             images.append(image)
 
         # current inferrence code expects a single np array
-        return images[0]
+        return images
 
     def inference(self, data, *args, **kwargs):
         """
@@ -73,8 +73,10 @@ class ModelHandler(BaseHandler):
             Torch Tensor : The Predicted Torch Tensor is returned in this function.
         """
         mg = SamAutomaticMaskGenerator(self.model)
+        results = []
         with torch.no_grad():
-            results = mg.generate(data, *args, **kwargs)
+            for row in data:
+                results.append(mg.generate(row, *args, **kwargs))
         return results
 
     def postprocess(self, data):
