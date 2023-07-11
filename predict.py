@@ -45,7 +45,7 @@ class ModelHandler(BaseHandler):
             # image = d["image"]
             image = row["image"]
             prompt = row["prompt"]
-            prompt = prompt.getvalue().decode("utf-8")
+            prompt = prompt.decode("utf-8")
             if isinstance(image, str):
                 # if the image is a string of bytesarray.
                 image = base64.b64decode(image)
