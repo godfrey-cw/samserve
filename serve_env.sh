@@ -24,7 +24,7 @@ for m in {'sam_b','sam_l','sam_h'}; do
             --serialized-file 'samweights/'$m'.pth' \
             --model-file 'samserve/'$m'.py' \
             --handler 'samserve/'$h'.py' \
-            --export-path models -v 0.1;
+            --export-path models -v 0.1 -f;
     done;
 done
 
