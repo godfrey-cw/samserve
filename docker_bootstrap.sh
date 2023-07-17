@@ -1,3 +1,0 @@
-#!/usr/bin/env bash
-
-# TODO: see if docker is easier to deal w/ ...

@@ -35,4 +35,7 @@ openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout keys/mykey.key -out 
 curl -4 ifconfig.co >> keys/ipaddress.txt;
 
 # launch torchserve
-torchserve --model-store models --start --models all --ts-config samserve/config.properties --no-config-snapshots;
+# torchserve --model-store models --start --models all --ts-config samserve/config.properties --no-config-snapshots;
+torchserve --model-store models --start \
+    --models sam_h_auto_maskgen=sam_h_auto_maskgen.mar sam_h_predict=sam_h_predict.mar  \
+    --ts-config samserve/config.properties --no-config-snapshots;
