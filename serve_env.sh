@@ -28,14 +28,16 @@ for m in {'sam_b','sam_l','sam_h'}; do
     done;
 done
 
-# ssl stuff (note, requires interactive)
-cd ~;
-mkdir keys;
-openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout keys/mykey.key -out keys/mycert.pem;
-curl -4 ifconfig.co >> keys/ipaddress.txt;
+# # ssl stuff (note, requires interactive)
+# cd ~;
+# mkdir keys;
+# openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout keys/mykey.key -out keys/mycert.pem;
+# curl -4 ifconfig.co >> keys/ipaddress.txt;
 
 # launch torchserve
+cd ~;
 torchserve --model-store models --start --models all --ts-config samserve/config.properties --no-config-snapshots;
+# if you want specific models, e.g. only the _h ones:
 # torchserve --model-store models --start \
 #     --models sam_h_auto_maskgen=sam_h_auto_maskgen.mar sam_h_predict=sam_h_predict.mar  \
 #     --ts-config samserve/config.properties --no-config-snapshots;
