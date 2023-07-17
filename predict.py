@@ -10,6 +10,7 @@ from PIL import Image
 
 from torchvision import transforms as T
 import numpy as np
+import pickle as pkl
 
 
 class ModelHandler(BaseHandler):
@@ -44,8 +45,12 @@ class ModelHandler(BaseHandler):
             # d = row.get("body") or row.get("data")
             # image = d["image"]
             image = row["image"]
-            prompt_points = row["prompt_points"]
-            prompt_labels = row["prompt_labels"]
+            prompt_points, prompt_labels = [
+                row[s] for s in ["prompt_points", "prompt_labels"]
+            ]
+            prompt_points, prompt_labels = [
+                pkl.loads(x) for x in [prompt_points, prompt_labels]
+            ]
             if isinstance(image, str):
                 # if the image is a string of bytesarray.
                 image = base64.b64decode(image)
