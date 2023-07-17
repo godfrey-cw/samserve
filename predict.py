@@ -44,8 +44,8 @@ class ModelHandler(BaseHandler):
             # d = row.get("body") or row.get("data")
             # image = d["image"]
             image = row["image"]
-            prompt = row["prompt"]
-            prompt = prompt.decode("utf-8")
+            prompt_points = row["prompt_points"]
+            prompt_labels = row["prompt_labels"]
             if isinstance(image, str):
                 # if the image is a string of bytesarray.
                 image = base64.b64decode(image)
@@ -60,7 +60,7 @@ class ModelHandler(BaseHandler):
                 # if the image is a list
                 image = torch.FloatTensor(image)
 
-            images.append([image, prompt])
+            images.append([image, prompt_points, prompt_labels])
 
         # current inferrence code expects a single np array
         return images
@@ -81,10 +81,14 @@ class ModelHandler(BaseHandler):
         results = []
         with torch.no_grad():
             for row in data:
-                image, prompt = row
+                image, prompt_points, prompt_labels = row
                 sp.set_image(image)
-                out = sp.predict(prompt)
-                result = [[x.tolist() for x in o] for o in out]
+                masks, scores, logits = sp.predict(
+                    point_coords=prompt_points,
+                    point_labels=prompt_labels,
+                    multimask_output=True,
+                )
+                result = [x.tolist() for x in [masks, scores, logits]]
                 results.append(result)
         return results
 
