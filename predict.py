@@ -40,17 +40,11 @@ class ModelHandler(BaseHandler):
         for row in data:
             # Compat layer: normally the envelope should just return the data
             # directly, but older versions of Torchserve didn't have envelope.
-            print(row)
+            print(row)  # for debugging ...
             # image = row.get("body") or row.get("data")
             # d = row.get("body") or row.get("data")
             # image = d["image"]
             image = row["image"]
-            prompt_points, prompt_labels = [
-                row[s] for s in ["prompt_points", "prompt_labels"]
-            ]
-            prompt_points, prompt_labels = [
-                pkl.loads(x) for x in [prompt_points, prompt_labels]
-            ]
             if isinstance(image, str):
                 # if the image is a string of bytesarray.
                 image = base64.b64decode(image)
@@ -64,6 +58,16 @@ class ModelHandler(BaseHandler):
             else:
                 # if the image is a list
                 image = torch.FloatTensor(image)
+
+            prompt_points, prompt_labels = [
+                row[s] for s in ["prompt_points", "prompt_labels"]
+            ]
+            prompt_points, prompt_labels = [
+                pkl.loads(x) for x in [prompt_points, prompt_labels]
+            ]
+            prompt_points, prompt_labels = [
+                np.asarray(x) for x in [prompt_points, prompt_labels]
+            ]
 
             images.append([image, prompt_points, prompt_labels])
 
